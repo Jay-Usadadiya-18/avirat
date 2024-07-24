@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class BarcodeScannerScreen extends StatefulWidget {
-  final String username;
+  final String? username;
   BarcodeScannerScreen({this.username});
   @override
   _BarcodeScannerScreenState createState() => _BarcodeScannerScreenState();

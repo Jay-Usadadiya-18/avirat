@@ -8,18 +8,18 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class Materialgetaa {
   Materialgetaa({
-    this.id,
-    this.something1,
-    this.something2,
-    this.something3,
-    this.picPipe,
-    this.basePlate,
-    this.autoRoad,
-    this.pcCable,
-    this.acCable,
-    this.laCable,
-    this.username,
-    this.nameM,
+    required this.id,
+    required this.something1,
+    required this.something2,
+    required this.something3,
+    required this.picPipe,
+    required this.basePlate,
+    required this.autoRoad,
+    required this.pcCable,
+    required this.acCable,
+    required this.laCable,
+    required this.username,
+    required this.nameM,
   });
 
   num id;
@@ -54,7 +54,7 @@ class Materialgetaa {
 }
 
 class MaterialScreen extends StatefulWidget {
-  final String username;
+  final String? username;
 
   MaterialScreen({this.username});
 
@@ -77,7 +77,7 @@ class _MaterialScreenState extends State<MaterialScreen> {
 
   Future<void> _fetchMaterials() async {
     SharedPreferences sp = await SharedPreferences.getInstance();
-    String username = sp.get('UserName') ?? "";
+    String? username = sp.getString('UserName') ?? "";
 
     final url = Uri.parse(
         'https://avirat-energy-backend.vercel.app/api/materials/${username}');
@@ -547,7 +547,7 @@ class _MaterialScreenState extends State<MaterialScreen> {
         floatingActionButton: FloatingActionButton(
             onPressed: () async {
               SharedPreferences sp = await SharedPreferences.getInstance();
-              String username = sp.get('UserName') ?? "";
+              String? username = sp.getString('UserName') ?? "";
 
               Navigator.push(
                 context,

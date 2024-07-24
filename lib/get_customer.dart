@@ -37,28 +37,28 @@ class PostModel {
   final String sitePhoto;
 
   PostModel({
-    this.id,
-    this.username,
-    this.name,
-    this.mobileNumber,
-    this.panelBrand,
-    this.panelQuality,
-    this.inverterBrand,
-    this.panelWatt,
-    this.lightBillImage,
-    this.passbookImage,
-    this.panCardImage,
-    this.uipImage,
-    this.chequeImage,
-    this.cashAmount,
-    this.cashDenomination500,
-    this.cashDenomination200,
-    this.cashDenomination100,
-    this.cashDenomination50,
-    this.cashDenomination20,
-    this.cashDenomination10,
-    this.cashTotal,
-    this.sitePhoto,
+    required this.id,
+    required this.username,
+    required this.name,
+    required this.mobileNumber,
+    required this.panelBrand,
+    required this.panelQuality,
+    required this.inverterBrand,
+    required this.panelWatt,
+    required this.lightBillImage,
+    required this.passbookImage,
+    required this.panCardImage,
+    required this.uipImage,
+    required this.chequeImage,
+    required this.cashAmount,
+    required this.cashDenomination500,
+    required this.cashDenomination200,
+    required this.cashDenomination100,
+    required this.cashDenomination50,
+    required this.cashDenomination20,
+    required this.cashDenomination10,
+    required this.cashTotal,
+    required this.sitePhoto,
   });
 
   factory PostModel.fromJson(Map<String, dynamic> json) {
@@ -141,18 +141,18 @@ class ApiService {
 }
 
 class CustomerMaster1 extends StatefulWidget {
-  final String username;
+  final String? username;
   bool _isMounted = false;
 
-  CustomerMaster1({Key key, this.username}) : super(key: key);
+  CustomerMaster1({Key? key, this.username}) : super(key: key);
 
   @override
   State<CustomerMaster1> createState() => _CustomerMaster1State();
 }
 
 class _CustomerMaster1State extends State<CustomerMaster1> {
-  List<PostModel> _allPosts;
-  List<PostModel> _filteredPosts;
+  List<PostModel>? _allPosts;
+  List<PostModel>? _filteredPosts;
   TextEditingController _searchController = TextEditingController();
   bool _isLoading = true;
 
@@ -179,7 +179,7 @@ class _CustomerMaster1State extends State<CustomerMaster1> {
 
   Future<void> _fetchData() async {
     SharedPreferences sp = await SharedPreferences.getInstance();
-    String username = sp.get('UserName') ?? "";
+    String? username = sp.getString('UserName') ?? "";
 
     final url = Uri.parse(
         'https://avirat-energy-backend.vercel.app/api/customers/${username}');
@@ -190,7 +190,7 @@ class _CustomerMaster1State extends State<CustomerMaster1> {
       setState(() {
         _allPosts = jsonData.map((item) => PostModel.fromJson(item)).toList();
         _filteredPosts =
-            List.from(_allPosts); // Initialize filtered list with all posts
+            List.from(_allPosts!); // Initialize filtered list with all posts
         _isLoading = false; // Data has been loaded
       });
     } else {
@@ -203,7 +203,7 @@ class _CustomerMaster1State extends State<CustomerMaster1> {
 
   void _filterPosts(String query) {
     setState(() {
-      _filteredPosts = _allPosts
+      _filteredPosts = _allPosts!
           .where(
               (post) => post.name.toLowerCase().contains(query.toLowerCase()))
           .toList();
@@ -242,8 +242,8 @@ class _CustomerMaster1State extends State<CustomerMaster1> {
       await ApiService.deleteCustomer(id);
 
       setState(() {
-        _allPosts.removeWhere((post) => post.id == id);
-        _filteredPosts.removeWhere((post) => post.id == id);
+        _allPosts!.removeWhere((post) => post.id == id);
+        _filteredPosts!.removeWhere((post) => post.id == id);
       });
 
       if (widget._isMounted) {
@@ -299,7 +299,7 @@ class _CustomerMaster1State extends State<CustomerMaster1> {
           IconButton(
             onPressed: () async {
               SharedPreferences sp = await SharedPreferences.getInstance();
-              String username = sp.get('UserName') ?? "";
+              String? username = sp.getString('UserName') ?? "";
 
               showDialog(
                 context: context,
@@ -336,6 +336,7 @@ class _CustomerMaster1State extends State<CustomerMaster1> {
                   image: DecorationImage(
                       fit: BoxFit.fill,
                       image: AssetImage('assets/images/img.png'))),
+              child: null,
             ),
             ListTile(
               leading: Icon(Icons.input),
@@ -347,7 +348,7 @@ class _CustomerMaster1State extends State<CustomerMaster1> {
               title: Text('Delivery'),
               onTap: () async {
                 SharedPreferences sp = await SharedPreferences.getInstance();
-                String username = sp.get('UserName') ?? "";
+                String? username = sp.getString('UserName') ?? "";
 
                 Navigator.push(
                   context,
@@ -362,7 +363,7 @@ class _CustomerMaster1State extends State<CustomerMaster1> {
               title: Text('M Consumption'),
               onTap: () async {
                 SharedPreferences sp = await SharedPreferences.getInstance();
-                String username = sp.get('UserName') ?? "";
+                String? username = sp.getString('UserName') ?? "";
 
                 Navigator.push(
                   context,
@@ -420,7 +421,7 @@ class _CustomerMaster1State extends State<CustomerMaster1> {
           ? Center(
               child: CircularProgressIndicator(), // Show loading indicator
             )
-          : _filteredPosts.isEmpty
+          : _filteredPosts!.isEmpty
               ? Center(
                   child: Text(
                     'No customer information available',
@@ -447,7 +448,7 @@ class _CustomerMaster1State extends State<CustomerMaster1> {
                         padding: EdgeInsets.symmetric(horizontal: 16.0),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: _filteredPosts.map((post) {
+                          children: _filteredPosts!.map((post) {
                             return Card(
                               margin: EdgeInsets.symmetric(vertical: 8.0),
                               child: Padding(
@@ -1041,7 +1042,7 @@ class _CustomerMaster1State extends State<CustomerMaster1> {
       floatingActionButton: FloatingActionButton(
           onPressed: () async {
             SharedPreferences sp = await SharedPreferences.getInstance();
-            String username = sp.get('UserName') ?? "";
+            String? username = sp.getString('UserName') ?? "";
 
             Navigator.push(
               context,
@@ -1055,7 +1056,7 @@ class _CustomerMaster1State extends State<CustomerMaster1> {
 }
 
 class FullScreenImage extends StatelessWidget {
-  final String imageUrl;
+  final String? imageUrl;
 
   const FullScreenImage({this.imageUrl});
 
@@ -1066,7 +1067,7 @@ class FullScreenImage extends StatelessWidget {
       body: Center(
         child: PhotoView(
           imageProvider: NetworkImage(
-            imageUrl,
+            imageUrl!,
           ),
         ),
       ),

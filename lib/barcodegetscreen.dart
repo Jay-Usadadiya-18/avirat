@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class BarcodeGet extends StatefulWidget {
-  final String username;
+  final String? username;
 
   BarcodeGet({this.username});
 
@@ -166,7 +166,7 @@ class _BarcodeGetState extends State<BarcodeGet> {
                                 trailing: IconButton(
                                   icon: Icon(Icons.delete),
                                   onPressed: () {
-                                    int id =
+                                    int? id =
                                         int.tryParse(barcode.id.toString());
                                     if (id != null) {
                                       _deleteBarcode(id);
@@ -192,10 +192,10 @@ class _BarcodeGetState extends State<BarcodeGet> {
 
 class Barcodegettt {
   Barcodegettt({
-    this.id,
-    this.code,
-    this.description,
-    this.username,
+    required this.id,
+    required this.code,
+    required this.description,
+    required this.username,
   });
 
   factory Barcodegettt.fromJson(Map<String, dynamic> json) {

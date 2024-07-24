@@ -5,8 +5,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../getdelivery.dart';
 
 class DeliveryScreen extends StatefulWidget {
-  final String username;
-  final DeliveryGet deliveryGet;
+  final String? username;
+  final DeliveryGet? deliveryGet;
 
   DeliveryScreen({this.username, this.deliveryGet});
 
@@ -34,7 +34,7 @@ class _DeliveryScreenState extends State<DeliveryScreen> {
   bool bfc = false;
   bool boxKit = false;
 
-  bool _isForUpdate;
+  bool? _isForUpdate;
   bool isLoading = false;
 
   Future<void> submitData() async {
@@ -65,14 +65,14 @@ class _DeliveryScreenState extends State<DeliveryScreen> {
 
     // Determine if it's an update or creation
     String endpoint;
-    bool isUpdate = _isForUpdate; // Adjust this condition as needed
+    bool? isUpdate = _isForUpdate; // Adjust this condition as needed
 
-    if (isUpdate) {
+    if (isUpdate!) {
       // For update, use the PUT method and modify the endpoint accordingly
       endpoint =
-          'https://avirat-energy-backend.vercel.app/api/delivery-orders/${widget.deliveryGet.id}/';
+          'https://avirat-energy-backend.vercel.app/api/delivery-orders/${widget.deliveryGet!.id}/';
       postData['id'] =
-          widget.deliveryGet.id.toString(); // Include ID for update
+          widget.deliveryGet!.id.toString(); // Include ID for update
     } else {
       // For creation, use the POST method and the original endpoint
       endpoint =
@@ -114,25 +114,25 @@ class _DeliveryScreenState extends State<DeliveryScreen> {
     super.initState();
 
     _isForUpdate = widget.deliveryGet != null;
-    if (_isForUpdate) {
-      transportName.text = widget.deliveryGet.transportName;
-      nameD.text = widget.deliveryGet.nameD;
-      panelBrand.text = widget.deliveryGet.panelBrand;
-      size404053Controller.text = widget.deliveryGet.size404053.toString();
-      size40406Controller.text = widget.deliveryGet.size40406.toString();
-      size60406Controller.text = widget.deliveryGet.size60406.toString();
-      pvcPipeController.text = widget.deliveryGet.pvcPipe.toString();
-      ekitController.text = widget.deliveryGet.ekit.toString();
-      bfcController.text = widget.deliveryGet.bfc.toString();
-      boxKitController.text = widget.deliveryGet.boxKit.toString();
+    if (_isForUpdate!) {
+      transportName.text = widget.deliveryGet!.transportName;
+      nameD.text = widget.deliveryGet!.nameD;
+      panelBrand.text = widget.deliveryGet!.panelBrand;
+      size404053Controller.text = widget.deliveryGet!.size404053.toString();
+      size40406Controller.text = widget.deliveryGet!.size40406.toString();
+      size60406Controller.text = widget.deliveryGet!.size60406.toString();
+      pvcPipeController.text = widget.deliveryGet!.pvcPipe.toString();
+      ekitController.text = widget.deliveryGet!.ekit.toString();
+      bfcController.text = widget.deliveryGet!.bfc.toString();
+      boxKitController.text = widget.deliveryGet!.boxKit.toString();
 
-      size404053 = widget.deliveryGet.size404053 > 0;
-      size40406 = widget.deliveryGet.size40406 > 0;
-      size60406 = widget.deliveryGet.size60406 > 0;
-      pvcPipe = widget.deliveryGet.pvcPipe > 0;
-      ekit = widget.deliveryGet.ekit > 0;
-      bfc = widget.deliveryGet.bfc > 0;
-      boxKit = widget.deliveryGet.boxKit > 0;
+      size404053 = widget.deliveryGet!.size404053 > 0;
+      size40406 = widget.deliveryGet!.size40406 > 0;
+      size60406 = widget.deliveryGet!.size60406 > 0;
+      pvcPipe = widget.deliveryGet!.pvcPipe > 0;
+      ekit = widget.deliveryGet!.ekit > 0;
+      bfc = widget.deliveryGet!.bfc > 0;
+      boxKit = widget.deliveryGet!.boxKit > 0;
     }
   }
 
@@ -182,7 +182,7 @@ class _DeliveryScreenState extends State<DeliveryScreen> {
                     .toList(),
                 onChanged: (value) {
                   setState(() {
-                    panelBrand.text = value;
+                    panelBrand.text = value!;
                   });
                 },
                 decoration: InputDecoration(labelText: 'Panel Brand'),
@@ -197,7 +197,7 @@ class _DeliveryScreenState extends State<DeliveryScreen> {
                     value: size404053,
                     onChanged: (value) {
                       setState(() {
-                        size404053 = value;
+                        size404053 = value!;
                       });
                     },
                   ),
@@ -213,7 +213,7 @@ class _DeliveryScreenState extends State<DeliveryScreen> {
                     value: size40406,
                     onChanged: (value) {
                       setState(() {
-                        size40406 = value;
+                        size40406 = value!;
                       });
                     },
                   ),
@@ -229,7 +229,7 @@ class _DeliveryScreenState extends State<DeliveryScreen> {
                     value: size60406,
                     onChanged: (value) {
                       setState(() {
-                        size60406 = value;
+                        size60406 = value!;
                       });
                     },
                   ),
@@ -245,7 +245,7 @@ class _DeliveryScreenState extends State<DeliveryScreen> {
                     value: pvcPipe,
                     onChanged: (value) {
                       setState(() {
-                        pvcPipe = value;
+                        pvcPipe = value!;
                       });
                     },
                   ),
@@ -261,7 +261,7 @@ class _DeliveryScreenState extends State<DeliveryScreen> {
                     value: ekit,
                     onChanged: (value) {
                       setState(() {
-                        ekit = value;
+                        ekit = value!;
                       });
                     },
                   ),
@@ -277,7 +277,7 @@ class _DeliveryScreenState extends State<DeliveryScreen> {
                     value: bfc,
                     onChanged: (value) {
                       setState(() {
-                        bfc = value;
+                        bfc = value!;
                       });
                     },
                   ),
@@ -293,7 +293,7 @@ class _DeliveryScreenState extends State<DeliveryScreen> {
                     value: boxKit,
                     onChanged: (value) {
                       setState(() {
-                        boxKit = value;
+                        boxKit = value!;
                       });
                     },
                   ),

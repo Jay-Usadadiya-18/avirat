@@ -7,9 +7,9 @@ import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class CustomerMasterUpdate extends StatefulWidget {
-  final String username;
-  final PostModel postModel;
-  const CustomerMasterUpdate({Key key, this.username, this.postModel})
+  final String? username;
+  final PostModel? postModel;
+  const CustomerMasterUpdate({Key? key, this.username, this.postModel})
       : super(key: key);
 
   @override
@@ -18,8 +18,8 @@ class CustomerMasterUpdate extends StatefulWidget {
 
 class _CustomerMasterUpdateState extends State<CustomerMasterUpdate> {
   bool _loading = false;
-  PostModel _editPostModel;
-  bool _isForUpdate;
+  PostModel? _editPostModel;
+  bool? _isForUpdate;
   final ImagePicker _picker = ImagePicker();
 
   @override
@@ -27,36 +27,36 @@ class _CustomerMasterUpdateState extends State<CustomerMasterUpdate> {
     super.initState();
 
     _isForUpdate = widget.postModel != null;
-    if (_isForUpdate) {
-      _customerName.text = widget.postModel.name;
-      _mobileNumber.text = widget.postModel.mobileNumber;
-      _panelBrand.text = widget.postModel.panelBrand;
-      _inverterBrand.text = widget.postModel.inverterBrand;
-      _panelWatt.text = widget.postModel.panelWatt.toString();
-      _panelQuality.text = widget.postModel.panelQuality;
-      cash_amount.text = widget.postModel.cashAmount;
+    if (_isForUpdate!) {
+      _customerName.text = widget.postModel!.name;
+      _mobileNumber.text = widget.postModel!.mobileNumber;
+      _panelBrand.text = widget.postModel!.panelBrand;
+      _inverterBrand.text = widget.postModel!.inverterBrand;
+      _panelWatt.text = widget.postModel!.panelWatt.toString();
+      _panelQuality.text = widget.postModel!.panelQuality;
+      cash_amount.text = widget.postModel!.cashAmount;
 
-      denominationControllers[500].text =
-          widget.postModel.cashDenomination500?.toString() ?? "";
-      denominationControllers[200].text =
-          widget.postModel.cashDenomination200?.toString() ?? "";
-      denominationControllers[100].text =
-          widget.postModel.cashDenomination100?.toString() ?? "";
-      denominationControllers[50].text =
-          widget.postModel.cashDenomination50?.toString() ?? "";
-      denominationControllers[20].text =
-          widget.postModel.cashDenomination20?.toString() ?? "";
-      denominationControllers[10].text =
-          widget.postModel.cashDenomination10?.toString() ?? "";
+      denominationControllers[500]!.text =
+          widget.postModel!.cashDenomination500?.toString() ?? "";
+      denominationControllers[200]!.text =
+          widget.postModel!.cashDenomination200?.toString() ?? "";
+      denominationControllers[100]!.text =
+          widget.postModel!.cashDenomination100?.toString() ?? "";
+      denominationControllers[50]!.text =
+          widget.postModel!.cashDenomination50?.toString() ?? "";
+      denominationControllers[20]!.text =
+          widget.postModel!.cashDenomination20?.toString() ?? "";
+      denominationControllers[10]!.text =
+          widget.postModel!.cashDenomination10?.toString() ?? "";
 
-      totalAmount.text = widget.postModel.cashTotal;
+      totalAmount.text = widget.postModel!.cashTotal;
 
-      _lightBillUrl = widget.postModel.lightBillImage;
-      _panCardUrl = widget.postModel.panCardImage;
-      _passbookUrl = widget.postModel.passbookImage;
-      _uipImageUrl = widget.postModel.uipImage;
-      _chequeImageUrl = widget.postModel.chequeImage;
-      _sitePhotoUrl = widget.postModel.sitePhoto;
+      _lightBillUrl = widget.postModel!.lightBillImage;
+      _panCardUrl = widget.postModel!.panCardImage;
+      _passbookUrl = widget.postModel!.passbookImage;
+      _uipImageUrl = widget.postModel!.uipImage;
+      _chequeImageUrl = widget.postModel!.chequeImage;
+      _sitePhotoUrl = widget.postModel!.sitePhoto;
     }
   }
 
@@ -77,20 +77,20 @@ class _CustomerMasterUpdateState extends State<CustomerMasterUpdate> {
     10: TextEditingController(text: '0'),
   };
 
-  String _lightBillUrl = "";
-  String _panCardUrl = "";
-  String _passbookUrl = "";
-  String _uipImageUrl = "";
-  String _chequeImageUrl = "";
-  String _sitePhotoUrl = "";
+  String? _lightBillUrl = "";
+  String? _panCardUrl = "";
+  String? _passbookUrl = "";
+  String? _uipImageUrl = "";
+  String? _chequeImageUrl = "";
+  String? _sitePhotoUrl = "";
 
-  File _lightBill;
-  File _panCard;
-  File _passbook;
-  File _uipImage;
-  File _chequeImage;
-  File _sitephoto;
-  String _errorText;
+  File? _lightBill;
+  File? _panCard;
+  File? _passbook;
+  File? _uipImage;
+  File? _chequeImage;
+  File? _sitephoto;
+  String? _errorText;
 
   //int totalAmount = 0;
 
@@ -116,7 +116,7 @@ class _CustomerMasterUpdateState extends State<CustomerMasterUpdate> {
     if (_validateForm()) {
       bool isUpdating = widget.postModel != null;
       String url = isUpdating
-          ? 'https://avirat-energy-backend.vercel.app/api/customer/${widget.postModel.id}'
+          ? 'https://avirat-energy-backend.vercel.app/api/customer/${widget.postModel!.id}'
           : 'https://avirat-energy-backend.vercel.app/api/customer/';
 
       var request = http.MultipartRequest(
@@ -131,14 +131,17 @@ class _CustomerMasterUpdateState extends State<CustomerMasterUpdate> {
       request.fields['panel_watt'] = _panelWatt.text;
       request.fields['panel_quality'] = _panelQuality.text;
       request.fields['cash_denomination_500'] =
-          denominationControllers[500].text;
+          denominationControllers[500]!.text;
       request.fields['cash_denomination_200'] =
-          denominationControllers[200].text;
+          denominationControllers[200]!.text;
       request.fields['cash_denomination_100'] =
-          denominationControllers[100].text;
-      request.fields['cash_denomination_50'] = denominationControllers[50].text;
-      request.fields['cash_denomination_20'] = denominationControllers[20].text;
-      request.fields['cash_denomination_10'] = denominationControllers[10].text;
+          denominationControllers[100]!.text;
+      request.fields['cash_denomination_50'] =
+          denominationControllers[50]!.text;
+      request.fields['cash_denomination_20'] =
+          denominationControllers[20]!.text;
+      request.fields['cash_denomination_10'] =
+          denominationControllers[10]!.text;
       request.fields['cash_total'] = totalAmount.text;
       request.fields['cash_amount'] = cash_amount.text;
       request.fields['username'] = username;
@@ -149,10 +152,10 @@ class _CustomerMasterUpdateState extends State<CustomerMasterUpdate> {
         print('Response Body: ${await response.stream.bytesToString()}');
         if (response.statusCode == 301) {
           // Handle redirect
-          String newUrl = response.headers['location'];
+          String? newUrl = response.headers['location'];
           request = http.MultipartRequest(
             isUpdating ? 'PUT' : 'POST',
-            Uri.parse("https://avirat-energy-backend.vercel.app" + newUrl),
+            Uri.parse("https://avirat-energy-backend.vercel.app" + newUrl!),
           );
           request.fields.addAll({
             'name': _customerName.text,
@@ -161,12 +164,12 @@ class _CustomerMasterUpdateState extends State<CustomerMasterUpdate> {
             'inverter_brand': _inverterBrand.text,
             'panel_watt': _panelWatt.text,
             'panel_quality': _panelQuality.text,
-            'cash_denomination_500': denominationControllers[500].text,
-            'cash_denomination_200': denominationControllers[200].text,
-            'cash_denomination_100': denominationControllers[100].text,
-            'cash_denomination_50': denominationControllers[50].text,
-            'cash_denomination_20': denominationControllers[20].text,
-            'cash_denomination_10': denominationControllers[10].text,
+            'cash_denomination_500': denominationControllers[500]!.text,
+            'cash_denomination_200': denominationControllers[200]!.text,
+            'cash_denomination_100': denominationControllers[100]!.text,
+            'cash_denomination_50': denominationControllers[50]!.text,
+            'cash_denomination_20': denominationControllers[20]!.text,
+            'cash_denomination_10': denominationControllers[10]!.text,
             'cash_total': totalAmount.text,
             'cash_amount': cash_amount.text,
             'username': username,
@@ -431,7 +434,7 @@ class _CustomerMasterUpdateState extends State<CustomerMasterUpdate> {
                   .toList(),
               onChanged: (value) {
                 setState(() {
-                  _panelBrand.text = value;
+                  _panelBrand.text = value!;
                 });
               },
               decoration: InputDecoration(labelText: 'Panel Brand'),
@@ -448,7 +451,7 @@ class _CustomerMasterUpdateState extends State<CustomerMasterUpdate> {
                   .toList(),
               onChanged: (value) {
                 setState(() {
-                  _inverterBrand.text = value;
+                  _inverterBrand.text = value!;
                 });
               },
               decoration: InputDecoration(labelText: 'Inverter Brand'),
@@ -477,7 +480,7 @@ class _CustomerMasterUpdateState extends State<CustomerMasterUpdate> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: denominationControllers.keys.map((denomination) {
-                TextEditingController controller =
+                TextEditingController? controller =
                     denominationControllers[denomination];
                 return Row(
                   children: [
@@ -534,8 +537,8 @@ class _CustomerMasterUpdateState extends State<CustomerMasterUpdate> {
                     'UIP Image', _uipImage, _uipImageUrl, _pickUIPImage)
                 : Container(),
             _chequeImageUrl != ""
-                ? _buildImagePicker('Cheque Image', _chequeImage,
-                    _chequeImageUrl, _pickChequeImage)
+                ? _buildImagePicker('Cheque Image', _chequeImage!,
+                    _chequeImageUrl!, _pickChequeImage)
                 : Container(),
             _sitePhotoUrl != ""
                 ? _buildImagePicker(
@@ -692,7 +695,7 @@ class _CustomerMasterUpdateState extends State<CustomerMasterUpdate> {
               Padding(
                 padding: EdgeInsets.symmetric(vertical: 10.0),
                 child: Text(
-                  _errorText,
+                  _errorText!,
                   style: TextStyle(color: Colors.red),
                 ),
               ),
@@ -703,7 +706,11 @@ class _CustomerMasterUpdateState extends State<CustomerMasterUpdate> {
   }
 
   Widget _buildImagePicker(
-      String label, File imageFile, String imageUrl, Function onPickImage) {
+    String label,
+    File? imageFile,
+    String? imageUrl,
+    void Function()? onPickImage, // Changed Function? to void Function()?
+  ) {
     return Column(
       children: [
         Container(
@@ -725,7 +732,9 @@ class _CustomerMasterUpdateState extends State<CustomerMasterUpdate> {
                     ),
         ),
         ElevatedButton(
-          onPressed: onPickImage,
+          onPressed: onPickImage != null
+              ? () => onPickImage()
+              : null, // Null check added here
           child: Text(label),
         ),
         SizedBox(height: MediaQuery.of(context).size.height / 50),

@@ -12,44 +12,41 @@
 
 class PostModel {
   PostModel({
-    num id,
-    String username,
-    String name,
-    String mobileNumber,
-    String panelBrand,
-    String panelQuality,
-    String inverterBrand,
-    num panelWatt,
+    required num id,
+    required String username,
+    required String name,
+    required String mobileNumber,
+    required String panelBrand,
+    required String panelQuality,
+    required String inverterBrand,
+    required num panelWatt,
     dynamic lightBillImage,
     dynamic passbookImage,
     dynamic panCardImage,
-  }) {
-    _id = id;
-    _username = username;
-    _name = name;
-    _mobileNumber = mobileNumber;
-    _panelBrand = panelBrand;
-    _panelQuality = panelQuality;
-    _inverterBrand = inverterBrand;
-    _panelWatt = panelWatt;
-    _lightBillImage = lightBillImage;
-    _passbookImage = passbookImage;
-    _panCardImage = panCardImage;
-  }
+  })  : _id = id,
+        _username = username,
+        _name = name,
+        _mobileNumber = mobileNumber,
+        _panelBrand = panelBrand,
+        _panelQuality = panelQuality,
+        _inverterBrand = inverterBrand,
+        _panelWatt = panelWatt,
+        _lightBillImage = lightBillImage,
+        _passbookImage = passbookImage,
+        _panCardImage = panCardImage;
 
-  PostModel.fromJson(dynamic json) {
-    _id = json['id'];
-    _username = json['username'];
-    _name = json['name'];
-    _mobileNumber = json['mobile_number'];
-    _panelBrand = json['panel_brand'];
-    _panelQuality = json['panel_quality'];
-    _inverterBrand = json['inverter_brand'];
-    _panelWatt = json['panel_watt'];
-    _lightBillImage = json['light_bill_image'];
-    _passbookImage = json['passbook_image'];
-    _panCardImage = json['pan_card_image'];
-  }
+  PostModel.fromJson(Map<String, dynamic> json)
+      : _id = json['id'],
+        _username = json['username'],
+        _name = json['name'],
+        _mobileNumber = json['mobile_number'],
+        _panelBrand = json['panel_brand'],
+        _panelQuality = json['panel_quality'],
+        _inverterBrand = json['inverter_brand'],
+        _panelWatt = json['panel_watt'],
+        _lightBillImage = json['light_bill_image'],
+        _passbookImage = json['passbook_image'],
+        _panCardImage = json['pan_card_image'];
 
   num _id;
   String _username;
@@ -62,33 +59,6 @@ class PostModel {
   dynamic _lightBillImage;
   dynamic _passbookImage;
   dynamic _panCardImage;
-
-  PostModel copyWith({
-    num id,
-    String username,
-    String name,
-    String mobileNumber,
-    String panelBrand,
-    String panelQuality,
-    String inverterBrand,
-    num panelWatt,
-    dynamic lightBillImage,
-    dynamic passbookImage,
-    dynamic panCardImage,
-  }) =>
-      PostModel(
-        id: id ?? _id,
-        username: username ?? _username,
-        name: name ?? _name,
-        mobileNumber: mobileNumber ?? _mobileNumber,
-        panelBrand: panelBrand ?? _panelBrand,
-        panelQuality: panelQuality ?? _panelQuality,
-        inverterBrand: inverterBrand ?? _inverterBrand,
-        panelWatt: panelWatt ?? _panelWatt,
-        lightBillImage: lightBillImage ?? _lightBillImage,
-        passbookImage: passbookImage ?? _passbookImage,
-        panCardImage: panCardImage ?? _panCardImage,
-      );
 
   num get id => _id;
 

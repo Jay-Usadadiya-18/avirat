@@ -21,18 +21,18 @@ class DeliveryGet {
   final int boxKit;
 
   DeliveryGet({
-    this.id,
-    this.username,
-    this.transportName,
-    this.nameD,
-    this.panelBrand,
-    this.size404053,
-    this.size40406,
-    this.size60406,
-    this.pvcPipe,
-    this.ekit,
-    this.bfc,
-    this.boxKit,
+    required this.id,
+    required this.username,
+    required this.transportName,
+    required this.nameD,
+    required this.panelBrand,
+    required this.size404053,
+    required this.size40406,
+    required this.size60406,
+    required this.pvcPipe,
+    required this.ekit,
+    required this.bfc,
+    required this.boxKit,
   });
 
   factory DeliveryGet.fromJson(Map<String, dynamic> json) {
@@ -55,7 +55,7 @@ class DeliveryGet {
 }
 
 class DeliveryScreenGet extends StatefulWidget {
-  String username;
+  String? username;
 
   DeliveryScreenGet({this.username});
 
@@ -77,7 +77,7 @@ class _DeliveryScreenGetState extends State<DeliveryScreenGet> {
 
   Future<void> _fetchDeliveryData() async {
     SharedPreferences sp = await SharedPreferences.getInstance();
-    String username = sp.get('UserName') ?? "";
+    String? username = sp.getString('UserName') ?? "";
 
     final url = Uri.parse(
         'https://avirat-energy-backend.vercel.app/api/delivery_orders/${username}');
@@ -543,7 +543,7 @@ class _DeliveryScreenGetState extends State<DeliveryScreenGet> {
         floatingActionButton: FloatingActionButton(
             onPressed: () async {
               SharedPreferences sp = await SharedPreferences.getInstance();
-              String username = sp.get('UserName') ?? "";
+              String? username = sp.getString('UserName') ?? "";
 
               Navigator.push(
                 context,

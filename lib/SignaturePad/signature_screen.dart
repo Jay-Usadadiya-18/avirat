@@ -2,9 +2,9 @@ import 'package:avirat_energy/get_customer.dart';
 import 'package:flutter/material.dart';
 
 class SignatureScreen extends StatefulWidget {
-  final String username;
+  final String? username;
 
-  const SignatureScreen({Key key, this.username}) : super(key: key);
+  const SignatureScreen({Key? key, this.username}) : super(key: key);
 
   @override
   State<SignatureScreen> createState() => _SignatureScreenState();

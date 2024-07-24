@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key key}) : super(key: key);
+  const LoginScreen({Key? key}) : super(key: key);
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -130,7 +130,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               vertical: 14, horizontal: 16),
                         ),
                         validator: (value) {
-                          if (value.isEmpty) {
+                          if (value!.isEmpty) {
                             return "Enter Username";
                           }
                           return null;
@@ -175,7 +175,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               vertical: 14, horizontal: 16),
                         ),
                         validator: (value) {
-                          if (value.isEmpty) {
+                          if (value!.isEmpty) {
                             return "Enter Password";
                           }
                           return null;
@@ -205,7 +205,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
                               sp.setBool('isLogin', true);
 
-                              if (_formKey.currentState.validate()) {
+                              if (_formKey.currentState!.validate()) {
                                 _login(
                                   _usernameController.text.toString(),
                                   _passwordController.text.toString(),

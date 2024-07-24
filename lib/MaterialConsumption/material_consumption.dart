@@ -4,8 +4,8 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Material_Screen extends StatefulWidget {
-  final String username;
-  final Materialgetaa materialgetaa;
+  final String? username;
+  final Materialgetaa? materialgetaa;
   Material_Screen({this.username, this.materialgetaa});
   @override
   _Material_ScreenState createState() => _Material_ScreenState();
@@ -23,7 +23,7 @@ class _Material_ScreenState extends State<Material_Screen> {
   TextEditingController _acCablesController = TextEditingController();
   TextEditingController _laCablesController = TextEditingController();
   bool isLoading = false;
-  bool _isForUpdate;
+  bool? _isForUpdate;
 
   Future<void> sendDataToAPI() async {
     SharedPreferences sp = await SharedPreferences.getInstance();
@@ -49,14 +49,14 @@ class _Material_ScreenState extends State<Material_Screen> {
 
     // Determine if it's an update or creation
     String endpoint;
-    bool isUpdate = _isForUpdate; // Adjust this condition as needed
+    bool? isUpdate = _isForUpdate; // Adjust this condition as needed
 
-    if (isUpdate) {
+    if (isUpdate!) {
       // For update, use the PUT method and modify the endpoint accordingly
       endpoint =
-          'https://avirat-energy-backend.vercel.app/api/materials/${widget.materialgetaa.id}/';
+          'https://avirat-energy-backend.vercel.app/api/materials/${widget.materialgetaa!.id}/';
       requestData['id'] =
-          widget.materialgetaa.id.toString(); // Include ID for update
+          widget.materialgetaa!.id.toString(); // Include ID for update
     } else {
       // For creation, use the POST method and the original endpoint
       endpoint = 'https://avirat-energy-backend.vercel.app/api/materials/';
@@ -97,17 +97,17 @@ class _Material_ScreenState extends State<Material_Screen> {
     super.initState();
 
     _isForUpdate = widget.materialgetaa != null;
-    if (_isForUpdate) {
-      _customerNameController.text = widget.materialgetaa.nameM;
-      _size1Controller.text = widget.materialgetaa.something1.toString();
-      _size2Controller.text = widget.materialgetaa.something2.toString();
-      _size3Controller.text = widget.materialgetaa.something3.toString();
-      _pvcController.text = widget.materialgetaa.picPipe.toString();
-      _basePlateController.text = widget.materialgetaa.basePlate.toString();
-      _autoroadController.text = widget.materialgetaa.autoRoad.toString();
-      _pcCablesController.text = widget.materialgetaa.pcCable.toString();
-      _acCablesController.text = widget.materialgetaa.acCable.toString();
-      _laCablesController.text = widget.materialgetaa.laCable.toString();
+    if (_isForUpdate!) {
+      _customerNameController.text = widget.materialgetaa!.nameM;
+      _size1Controller.text = widget.materialgetaa!.something1.toString();
+      _size2Controller.text = widget.materialgetaa!.something2.toString();
+      _size3Controller.text = widget.materialgetaa!.something3.toString();
+      _pvcController.text = widget.materialgetaa!.picPipe.toString();
+      _basePlateController.text = widget.materialgetaa!.basePlate.toString();
+      _autoroadController.text = widget.materialgetaa!.autoRoad.toString();
+      _pcCablesController.text = widget.materialgetaa!.pcCable.toString();
+      _acCablesController.text = widget.materialgetaa!.acCable.toString();
+      _laCablesController.text = widget.materialgetaa!.laCable.toString();
     }
   }
 
@@ -207,7 +207,7 @@ class _Material_ScreenState extends State<Material_Screen> {
     );
   }
 
-  Widget _buildTextField({TextEditingController controller, String label}) {
+  Widget _buildTextField({TextEditingController? controller, String? label}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

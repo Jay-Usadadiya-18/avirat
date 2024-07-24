@@ -8,8 +8,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class CustomerMaster extends StatefulWidget {
-  final String username;
-  const CustomerMaster({Key key, this.username}) : super(key: key);
+  final String? username;
+  const CustomerMaster({Key? key, this.username}) : super(key: key);
 
   @override
   State<CustomerMaster> createState() => _CustomerMasterState();
@@ -25,19 +25,19 @@ class _CustomerMasterState extends State<CustomerMaster> {
 
   String _customerName = '';
   String _mobileNumber = '';
-  String _panelBrand;
-  String _inverterBrand;
-  String _panelWatt;
+  String? _panelBrand;
+  String? _inverterBrand;
+  String? _panelWatt;
   String _panelQuality = '';
   String cash_amount = '';
 
-  File _lightBill;
-  File _panCard;
-  File _passbook;
-  File _uipImage;
-  File _chequeImage;
-  File _sitephoto;
-  String _errorText;
+  File? _lightBill;
+  File? _panCard;
+  File? _passbook;
+  File? _uipImage;
+  File? _chequeImage;
+  File? _sitephoto;
+  String? _errorText;
   Map<int, int> cashDenominations = {
     500: 0,
     200: 0,
@@ -60,7 +60,6 @@ class _CustomerMasterState extends State<CustomerMaster> {
   }
 
   Future<void> _submitForm() async {
-
     SharedPreferences sp = await SharedPreferences.getInstance();
     String username = sp.getString('UserName') ?? "";
 
@@ -78,9 +77,9 @@ class _CustomerMasterState extends State<CustomerMaster> {
       // Add form fields
       request.fields['name'] = _customerName;
       request.fields['mobile_number'] = _mobileNumber;
-      request.fields['panel_brand'] = _panelBrand;
-      request.fields['inverter_brand'] = _inverterBrand;
-      request.fields['panel_watt'] = _panelWatt;
+      request.fields['panel_brand'] = _panelBrand!;
+      request.fields['inverter_brand'] = _inverterBrand!;
+      request.fields['panel_watt'] = _panelWatt!;
       request.fields['panel_quality'] = _panelQuality;
       request.fields['cash_denomination_500'] =
           cashDenominations[500].toString();
@@ -93,37 +92,37 @@ class _CustomerMasterState extends State<CustomerMaster> {
       if (_lightBill != null) {
         request.files.add(await http.MultipartFile.fromPath(
           'light_bill_image',
-          _lightBill.path,
+          _lightBill!.path,
         ));
       }
       if (_panCard != null) {
         request.files.add(await http.MultipartFile.fromPath(
           'pan_card_image',
-          _panCard.path,
+          _panCard!.path,
         ));
       }
       if (_passbook != null) {
         request.files.add(await http.MultipartFile.fromPath(
           'passbook_image',
-          _passbook.path,
+          _passbook!.path,
         ));
       }
       if (_uipImage != null) {
         request.files.add(await http.MultipartFile.fromPath(
           'uip_image',
-          _uipImage.path,
+          _uipImage!.path,
         ));
       }
       if (_chequeImage != null) {
         request.files.add(await http.MultipartFile.fromPath(
           'cheque_image',
-          _chequeImage.path,
+          _chequeImage!.path,
         ));
       }
       if (_sitephoto != null) {
         request.files.add(await http.MultipartFile.fromPath(
           'site_photo',
-          _sitephoto.path,
+          _sitephoto!.path,
         ));
       }
 
@@ -194,27 +193,27 @@ class _CustomerMasterState extends State<CustomerMaster> {
   }
 
   Future<void> _pickPanCard() async {
-    FilePickerResult result = await FilePicker.platform.pickFiles(
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
       type: FileType.custom,
       allowedExtensions: ['jpg', 'jpeg', 'pdf'],
     );
 
     if (result != null) {
       setState(() {
-        _panCard = File(result.files.single.path);
+        _panCard = File(result.files.single.path!);
       });
     }
   }
 
   Future<void> _pickPassbook() async {
-    FilePickerResult result = await FilePicker.platform.pickFiles(
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
       type: FileType.custom,
       allowedExtensions: ['jpg', 'jpeg', 'pdf'],
     );
 
     if (result != null) {
       setState(() {
-        _passbook = File(result.files.single.path);
+        _passbook = File(result.files.single.path!);
       });
     }
   }
@@ -336,7 +335,7 @@ class _CustomerMasterState extends State<CustomerMaster> {
             ),
             SizedBox(height: MediaQuery.of(context).size.height / 50),
             DropdownButtonFormField<int>(
-              value: _panelWatt != null ? int.parse(_panelWatt) : null,
+              value: _panelWatt != null ? int.parse(_panelWatt!) : null,
               items: ['535', '545', '540', '555', '565', '575']
                   .map((watt) => DropdownMenuItem(
                         child: Text(watt),
@@ -404,7 +403,7 @@ class _CustomerMasterState extends State<CustomerMaster> {
                 border: Border.all(color: Colors.grey),
               ),
               child: _lightBill != null
-                  ? Image.file(_lightBill, fit: BoxFit.cover)
+                  ? Image.file(_lightBill!, fit: BoxFit.cover)
                   : Center(
                       child: Text(
                         'No photo selected',
@@ -425,7 +424,7 @@ class _CustomerMasterState extends State<CustomerMaster> {
                 border: Border.all(color: Colors.grey),
               ),
               child: _panCard != null
-                  ? Image.file(_panCard, fit: BoxFit.cover)
+                  ? Image.file(_panCard!, fit: BoxFit.cover)
                   : Center(
                       child: Text(
                         'No photo selected',
@@ -446,7 +445,7 @@ class _CustomerMasterState extends State<CustomerMaster> {
                 border: Border.all(color: Colors.grey),
               ),
               child: _passbook != null
-                  ? Image.file(_passbook, fit: BoxFit.cover)
+                  ? Image.file(_passbook!, fit: BoxFit.cover)
                   : Center(
                       child: Text(
                         'No photo selected',
@@ -467,7 +466,7 @@ class _CustomerMasterState extends State<CustomerMaster> {
                 border: Border.all(color: Colors.grey),
               ),
               child: _sitephoto != null
-                  ? Image.file(_sitephoto, fit: BoxFit.cover)
+                  ? Image.file(_sitephoto!, fit: BoxFit.cover)
                   : Center(
                       child: Text(
                         'No photo selected',
@@ -488,7 +487,7 @@ class _CustomerMasterState extends State<CustomerMaster> {
                 border: Border.all(color: Colors.grey),
               ),
               child: _uipImage != null
-                  ? Image.file(_uipImage, fit: BoxFit.cover)
+                  ? Image.file(_uipImage!, fit: BoxFit.cover)
                   : Center(
                       child: Text(
                         'No photo selected',
@@ -509,7 +508,7 @@ class _CustomerMasterState extends State<CustomerMaster> {
                 border: Border.all(color: Colors.grey),
               ),
               child: _chequeImage != null
-                  ? Image.file(_chequeImage, fit: BoxFit.cover)
+                  ? Image.file(_chequeImage!, fit: BoxFit.cover)
                   : Center(
                       child: Text(
                         'No photo selected',
@@ -545,7 +544,7 @@ class _CustomerMasterState extends State<CustomerMaster> {
               Padding(
                 padding: EdgeInsets.symmetric(vertical: 10.0),
                 child: Text(
-                  _errorText,
+                  _errorText!,
                   style: TextStyle(color: Colors.red),
                 ),
               ),
